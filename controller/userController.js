@@ -6,33 +6,42 @@ exports.userCreate = function( req, res ){
 
 
 exports.userUpdate = function( req, res ){
-	userModel.update( req , res );
+	
+	const response = userModel.update( req );
+
+	response.then((result)=>{
+		
+		res.status(200); 
+		res.type('json'); 
+		res.send({"message": result });
+
+	}).catch((error)=>{
+
+		res.status(400); 
+		res.type('json'); 
+		res.send({"message":error});
+
+	});
+
 };
 
 exports.userDelete = function( req, res ){
 
 	const response = userModel.delete( req , res );
-	
-	response.then( value =>{
-		console.log(value);
-	},error => {
-		console.log(error);
-	}
-	);
 
-	/*response.then((value)=>{
-    console.log( value );
-	if( value.status == false ){
-		res.status(400); 
-		res.type('json'); 
-		res.send({"message":value.message});
-	}else{
+	response.then( (result)=>{
+
 		res.status(200); 
 		res.type('json'); 
-		res.send({"message": value.message });
-	}
-	},*/
-
+		res.send({"message": result });
 	
-    //return value;
-};
+	}).catch( (error)=> {
+	
+		res.status(400); 
+		res.type('json'); 
+		res.send({"message":error});
+	
+	});
+
+}
+	

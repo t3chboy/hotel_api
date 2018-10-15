@@ -20,102 +20,97 @@ exports.create = ( req , res ) =>{
 	})
 }
 
-exports.delete = ( req , res ) =>{
+exports.delete = ( req ) =>{
 
-	return new Promise( ( resolve , reject ) =>{
-		exports.exists( req , ( error , result ) =>{
-			
-				return resolve( result );
-			
-		});
-	}).then( ( data)=>{
-		
-		if( data.length == 1 ){
+	return new Promise( ( resolve , reject )=>{
 
-			//logic to soft delete user
+	exports.exists( req ).then( (result) => {
+		if( result.length == 1 ){
+			return true;
+		}
+	}).then( () => {
+			
+		return new Promise( ( resolve , reject)=> {
+
 			const deleteRowId = [ req.params.userId ];
 			const deleteQuery = "UPDATE user_master set STATUS = '0' where id = ? ";
-			console.log("38");
-
-			mysqlService.connect().query( deleteQuery, deleteRowId ,( error , results , fields )=>{
-				if( error ) throw error;
+			
+			mysqlService.connect().query( deleteQuery, deleteRowId ,( error , results )=>{
+				if( error ) return reject(error);
 				if( results.affectedRows == 1 ){
-					return {'status': true , "message" : 'Delete successfully' };
+		
+					return resolve( 'Deleted successfully.' );
 				}
 			});	
-			console.log("45");	
-
-		}else{
-			throw("User Doesnot exists pppopppo");
-		}	
-
-	}).catch( (error )=>{
-		return {'status': false , "message" : `${error}` };
-	});	
-
-
-
-}
-
-exports.update = ( req , res ) => {
-
-	return new Promise( ( resolve , reject ) =>{
-		exports.exists( req , ( error , result ) =>{
-			if( error ) return reject( error );
-			else{
-				resolve( result );
-			}
 		});
-	}).then( ( data)=>{
 
-		if( data.length == 1 ){
-			
-			const whereClause = {
-				id : req.params.userId
-			}
-
-			const updateData = req.body;
-			
-			const updateQuery = "UPDATE user_master set ? where ? ";
-
-			mysqlService.connect().query( updateQuery , [ updateData , whereClause ] , ( error ,  results ,fields ) =>{
-				if( error ) throw error;
-				if( results.affectedRows == 1 ){
-					res.status(200); 
-					res.type('json'); 
-					res.send({"message":'Updated successfully'});
-				}
-
-			});
-
-
-		}else{
-			throw("User Does not exists");
-		}
-	}).catch( (error )=>{
-		res.status(400); 
-		res.type('json'); 
-		res.send({"message":`${error}`});
+	}).then(( result )=>{
+		return resolve( result );
+	}).catch( (error)=> {
+		return reject( error );
 	});
 
+	});
 }
 
-exports.exists = ( req , callback ) => {
+exports.update = ( req ) =>{
 
-	const whereClause = {
-		id : req.params.userId
-	}
+	return new Promise( ( resolve , reject )=>{
 
-	const selectQuery = "select id from user_master where ? ";
+		exports.exists( req ).then((result)=>{
+			if( result.length == 1 ){
 
-	mysqlService.connect().query( selectQuery , whereClause ,( error ,  results )=>{
+				return new Promise((resolve,reject)=>{
 
-		if( error ){
-			return callback( error );
-		}else{
-			return callback(null,results )
-		}
+					const whereClause = {
+						id : req.params.userId
+					}
+
+					const updateData = req.body;
+					
+					const updateQuery = "UPDATE user_master set ? where ? ";
+
+					mysqlService.connect().query( updateQuery , [ updateData , whereClause ] , ( error ,  results ,fields ) =>{
+						if( error ) return reject(error);
+						if( results.affectedRows == 1 ){
+							return resolve( 'Updated successfully');
+						}
+
+					});
+
+
+				})
+			}
+
+		}).then((result)=>{
+			return resolve(result);
+		}).catch((error)=>{
+			return reject(error);
+		})
+	});
+}
+
+
+
+exports.exists = ( req ) => {
+
+	return new Promise( ( resolve , reject )=>{
+
+		const selectQuery = "select id from user_master where ? AND ? ";
+		
+		mysqlService.connect().query( selectQuery , [ req.params.userId , 1 ] ,( error ,  results , fields )=>{
+			console.log( mysqlService.connect().query() );
+			if( error ){
+				return reject( error );
+			}else if( results.length == 0 ){
+				console.log("awdawd");
+				return reject("User Not Found");
+			} else{
+				return resolve( results );
+			}
+
+		});
 
 	});
-	
+
 }
