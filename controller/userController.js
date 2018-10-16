@@ -1,47 +1,37 @@
-const userModel = require('../models/userModel');
 
-exports.userCreate = function( req, res ){
-	userModel.create( req , res );
-};
+const userModelClass = require('../models/userModel');
 
+class UserController {
 
-exports.userUpdate = function( req, res ){
-	
-	const response = userModel.update( req );
+	constructor() {
+		this._userModelObj = new userModelClass();
+	}
 
-	response.then((result)=>{
-		
-		res.status(200); 
-		res.type('json'); 
-		res.send({"message": result });
+	userDelete(userData) {
+		let self = this;
+		return new Promise((resolve, reject) => {
+			self._userModelObj.deleteData(userData).then(data => {
+				return resolve(data);
+			}, err => {
+				reject(err);
+			}).catch(err => {
+				reject(err);
+			});
+		});
+	}
 
-	}).catch((error)=>{
-
-		res.status(400); 
-		res.type('json'); 
-		res.send({"message":error});
-
-	});
-
-};
-
-exports.userDelete = function( req, res ){
-
-	const response = userModel.delete( req , res );
-
-	response.then( (result)=>{
-
-		res.status(200); 
-		res.type('json'); 
-		res.send({"message": result });
-	
-	}).catch( (error)=> {
-	
-		res.status(400); 
-		res.type('json'); 
-		res.send({"message":error});
-	
-	});
-
+	update(userData,bodyParams){
+		let self = this;
+		return new Promise((resolve,reject) =>{
+			self._userModelObj.updateUser(userData,bodyParams)
+			.then(data=>{
+				console.log(data);
+				return resolve( data );
+			}, err => {
+				reject(err);
+			})
+		});
+	}
 }
-	
+
+module.exports = UserController;
