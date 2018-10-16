@@ -5,7 +5,9 @@ const express = require('express');
 const routes = express.Router();
 
 let userControllerClass = require('../controller/userController');
+let hotelControllerClass = require('../controller/hotelController');
 let userControllerObj = new userControllerClass();
+let hotelControllerObj = new hotelControllerClass();
 
 routes.get('/', function (req, res) {
     console.log("in routes");
@@ -44,5 +46,32 @@ routes.put('/user/:userId', (req, res, next) => {
     }
 });
 
+routes.post('/user',(req, res, next)=>{
+
+    let bodyParams = req.body;
+
+    try{
+        userControllerObj.create(bodyParams).then(data => {
+            res.status(200);
+            res.send({'message':data});
+        }, err => {
+            res.status(400);
+            res.send(err);
+        })
+    } catch (err){
+        res.status(500);
+        res.send(err);
+    }
+});
+
+routes.post( '/hotel',hotelControllerObj.create);
+
+    routes.delete( '/hotel/:hotelId' , function( req, res ){
+        res.send("hotel deleted successfully");
+    });
+
+    routes.put( '/hotel/:hotelId' , function( req, res ){
+        res.send( "hotel updated successfully" );
+});
 
 module.exports = routes;

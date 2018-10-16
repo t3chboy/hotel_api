@@ -5,9 +5,28 @@ class userModel {
 
 	}
 
-	create(userData){
+	create( requestParams ){
+
 		return new Promise((resolve,reject)=>{
 			
+			const userData = [ requestParams.name, requestParams.age, requestParams.city ];
+
+			const insertQuery = "INSERT INTO user_master ( name , age , city ) values ( ? , ? , ? ) ";
+			
+			//mysqlService.connect() ;
+			mysqlService.connect().query( insertQuery , userData , ( error , results, fields )=>{
+				
+				if (error) {
+					return reject(error);
+				};
+
+				if (results.affectedRows == 1) {
+					return resolve('Created successfully.');
+				}
+				
+			})	
+
+
 		});
 
 	}

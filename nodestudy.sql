@@ -16,6 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `hotel_master`
+--
+
+DROP TABLE IF EXISTS `hotel_master`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `hotel_master` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `city` varchar(255) NOT NULL,
+  `state` varchar(255) NOT NULL,
+  `address` varchar(1000) NOT NULL,
+  `total_room_count` int(11) NOT NULL DEFAULT '0',
+  `status` enum('0','1') NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `hotel_master`
+--
+
+LOCK TABLES `hotel_master` WRITE;
+/*!40000 ALTER TABLE `hotel_master` DISABLE KEYS */;
+/*!40000 ALTER TABLE `hotel_master` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `user_master`
 --
 
@@ -27,8 +55,9 @@ CREATE TABLE `user_master` (
   `name` varchar(255) NOT NULL,
   `age` int(11) NOT NULL,
   `city` varchar(255) NOT NULL,
+  `status` enum('0','1') NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,6 +66,7 @@ CREATE TABLE `user_master` (
 
 LOCK TABLES `user_master` WRITE;
 /*!40000 ALTER TABLE `user_master` DISABLE KEYS */;
+INSERT INTO `user_master` VALUES (1,'kaushil',29,'mumbai','1'),(2,'Kaushil',29,'KOlkata','0'),(3,'test user 1',29,'mumbai','1');
 /*!40000 ALTER TABLE `user_master` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -49,4 +79,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-15  1:21:40
+-- Dump completed on 2018-10-17  0:12:53

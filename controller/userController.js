@@ -7,6 +7,21 @@ class UserController {
 		this._userModelObj = new userModelClass();
 	}
 
+	create(requestParams){
+		let self = this;
+		return new Promise((resolve,reject)=>{
+			self._userModelObj.create(requestParams).then(data => {
+				return resolve(data);	
+			},err => {
+				reject(err);
+			}).catch( err => {
+				reject(err);
+			});
+
+		});
+
+	}
+
 	userDelete(userData) {
 		let self = this;
 		return new Promise((resolve, reject) => {
