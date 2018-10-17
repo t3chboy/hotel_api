@@ -5,9 +5,11 @@ class UserController {
 
 	constructor() {
 		this._userModelObj = new userModelClass();
+		console.log( this );
 	}
 
 	create(requestParams){
+		console.log(this);
 		let self = this;
 		return new Promise((resolve,reject)=>{
 			self._userModelObj.create(requestParams).then(data => {

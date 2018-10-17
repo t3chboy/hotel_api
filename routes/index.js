@@ -64,14 +64,12 @@ routes.post('/user',(req, res, next)=>{
     }
 });
 
-routes.post( '/hotel',hotelControllerObj.create);
+routes.post( '/hotel',hotelControllerObj.create.bind(hotelControllerObj));
 
-    routes.delete( '/hotel/:hotelId' , function( req, res ){
-        res.send("hotel deleted successfully");
-    });
+routes.put( '/hotel/:hotelId',hotelControllerObj.update.bind(hotelControllerObj));
 
-    routes.put( '/hotel/:hotelId' , function( req, res ){
-        res.send( "hotel updated successfully" );
-});
+routes.delete( '/hotel/:hotelId',hotelControllerObj.delete.bind(hotelControllerObj));
+
+
 
 module.exports = routes;
