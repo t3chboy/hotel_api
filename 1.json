@@ -1,0 +1,290 @@
+{
+	"info": {
+		"_postman_id": "a6d44340-6a35-4127-b229-8c875d2d74c9",
+		"name": "Hotel_api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"test user 1\",\n\t\"age\":29,\n\t\"city\":\"mumbai\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4000/user/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"user",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update User",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"Kaushil\",\n\t\"age\":29,\n\t\"city\":\"KOlkata\"\n\t\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4000/user/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"user",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:4000/user/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"user",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Hotel",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:4000/hotel/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"hotel",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create hotel",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"test user 1\",\n\t\"city\":\"mumbai\",\n\t\"state\":\"Goa\",\n\t\"address\":\"opp baga beach\",\n\t\"total_room_count\":60\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4000/hotel/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"hotel",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create hotel",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"Taj palace\",\n\t\"city\":\"Mumbai\",\n\t\"state\":\"MH\",\n\t\"address\":\"Opp gateway of India\",\n\t\"total_room_count\":60\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4000/hotel",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"hotel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update hotel",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"test user 1\",\n\t\"city\":\"mumbai\",\n\t\"state\":\"Goa\",\n\t\"address\":\"opp baga beach\",\n\t\"total_room_count\":60\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4000/hotel/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"hotel",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create room",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"room_description\" : \"single room\",\n\t\"cost_per_day\" : 4000.00,\n\t\"room_no\" : 101\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4000/hotel/1/room",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"hotel",
+						"1",
+						"room"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "bulk Create room",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\n\t\"room_description\" : \"single room\",\n\t\"cost_per_day\" : 4000.00,\n\t\"room_no\" : 101\n},\n{\n\t\"room_description\" : \"double room\",\n\t\"cost_per_day\" : 7000.00,\n\t\"room_no\" : 102\n}]"
+				},
+				"url": {
+					"raw": "http://localhost:4000/hotel/1/room/bulk",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"hotel",
+						"1",
+						"room",
+						"bulk"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create booking",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-token",
+						"value": "1",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"hotelId\":1,\n\"room_id\":1,\n\"no_of_oocupants\" : 2,\n\"check_in_date\" : \"2018-11-11 11:00:00\",\n\"check_out_date\" : \"2018-11-15 10:30:00\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4000/booking/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"booking",
+						"create"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

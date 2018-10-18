@@ -87,10 +87,6 @@ class hotelController {
 
 	}
 
-	exists(){
-
-
-	}
 }
 
 module.exports = hotelController;

@@ -33,7 +33,7 @@ class hotelModel {
 	delete(requestParams) {
 		let self = this;
 		return new Promise((resolve, reject) => {
-			self.exists(requestParams)
+			self.exists(requestParams.hotelId)
 				.then(()=>{
 					return self.deleteData(requestParams)
 				})
@@ -48,7 +48,7 @@ class hotelModel {
 	update(hotelData,bodyParams){
 		let self = this;
 		return new Promise((resolve,reject)=>{
-			self.exists(hotelData)
+			self.exists(hotelData.hotelId)
 			.then(()=>{
 				return self.updateHotel(hotelData,bodyParams)
 			})		
@@ -109,16 +109,16 @@ class hotelModel {
 
 	}
 
-	exists(userData) {
+	exists( hotelId ) {
 
 		return new Promise((resolve, reject) => {
 			let selectQuery = "select id from hotel_master where id= ? AND status = ? ";
 
-			mysqlService.connect().query(selectQuery, [userData.hotelId, '1'], (error, results, fields) => {
+			mysqlService.connect().query(selectQuery, [hotelId, '1'], (error, results, fields) => {
 				if (error) {
 					return reject(error);
 				} else if (results.length == 0) {
-					return reject("User Not Found");
+					return reject("Hotel Not Found");
 				} else {
 					return resolve(true);
 				}
