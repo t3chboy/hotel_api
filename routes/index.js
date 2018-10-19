@@ -8,12 +8,14 @@ let userControllerClass = require('../controller/userController');
 let hotelControllerClass = require('../controller/hotelController');
 let roomControllerClass = require('../controller/roomController');
 let bookingControllerClass = require('../controller/bookingController');
+let searchControllerClass = require('../controller/searchController');
 let tokenServiceClass = require('../services/token_service');
 
 let userControllerObj = new userControllerClass();
 let hotelControllerObj = new hotelControllerClass();
 let roomControllerObj = new roomControllerClass();
 let bookingControllerObj = new bookingControllerClass();
+let searchControllerObj = new searchControllerClass();
 let tokenServiceObj = new tokenServiceClass();
 
 routes.get('/', function (req, res) {
@@ -140,16 +142,31 @@ routes.post('/booking/create', ( req, res, next ) =>{
             res.send({'message':"Authentication Failed, Invalid user."}); 
         }
     }else{
-        console.log("awdawdawdwd");
         res.status(400);
         res.send({'message':"Authentication Failed, Invalid user."}); 
         res.end("");      
     }
-
-
-
 });
 
+
+routes.get('/search/:hotelId?',( req, res, next ) =>{
+
+    const bodyParams = req.body;
+
+    try{
+        searchControllerObj.search( bodyParams ).then(data => {
+            res.status(200);
+            res.send({'message':data});
+        },err =>{ 
+            res.status(400);
+            res.send(err);
+        });
+    }catch( error ){
+        res.status('500');
+        res.send(error);
+    }
+
+});
 
 
 
