@@ -55,11 +55,11 @@ Currently there are 3 test cases
 - For scalability and to handle huge traffic we can use In Memory database like Redis.
 - Here we are using Mysql RDBMS, for which we are using connection pooling technic, so that we can cache and resuse connections.  Current pool size = 100.
 - Folder Structure
-  1.Controller - All Rest based controllers which get the request from routes and pass it to models.
-  2.Models - All Models are related to each controller and they perfome database realted operations.
-  3.Routes - Contains `indes.js` file which contains handles for all http request based on http methods.
-  4.Services - All the services which can be used acrossed application are stored here eg : mysql, logger.
-  5.Node_modules : Conatins 3rd party modules installed via npm.
-  6.Test : Contains 'test.js' file which as above mentioned 3 test cases.
-  7.Logs : Stores the logs files for future investigation.
-  8. .env : Contains enviorment specific data and included in git ignore.
+   1. Controller - All Rest based controllers which get the request from routes and pass it to models.
+   2. Models - All Models are related to each controller and they perfome database realted operations.
+   3. Routes - Contains `indes.js` file which contains handles for all http request based on http methods.
+   4. Services - All the services which can be used acrossed application are stored here eg : mysql, logger.
+   5. Node_modules : Conatins 3rd party modules installed via npm.
+   6. Test : Contains 'test.js' file which as above mentioned 3 test cases.
+   7. Logs : Stores the logs files for future investigation.
+   8. .env : Contains enviorment specific data and included in git ignore.
