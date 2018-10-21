@@ -30,9 +30,9 @@
 - Import `Hotel_api.postman_collection.json` collection in postman to run the APIs.
 
 ### Use Application
-- [x]Browse to test folder via terminal.
-- [x]Type `node start` to start the application.
-- [x]Hit the APIs from postman collection imported ealier.
+- [x] Browse to test folder via terminal.
+- [x] Type `node start` to start the application.
+- [x] Hit the APIs from postman collection imported ealier.
 
 ### Test Cases
 - Start application using `npm start`
