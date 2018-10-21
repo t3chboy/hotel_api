@@ -8,6 +8,12 @@ class roomModel{
 		this._hotelModelObj = new hotelModelClass();
 	}
 
+	/**
+	 * [create Create new room for Data]
+	 * @param  {Json} bodyParams [Key value pair for room Data]
+	 * @param  {Number} hotelId  [hotel for which room will be created]
+	 * @return {[type]}          [Success or Fail Message]
+	 */
 	create( bodyParams, hotelId ){
 
 		return new Promise((resolve,reject)=>{
@@ -33,10 +39,10 @@ class roomModel{
 
 			const insertQuery = "INSERT INTO room_master ( hotel_id, room_description, cost_per_day, room_no ) values ( ? , ? , ? , ? ) ";
 			
-			mysqlService.connect().query( insertQuery , roomData , ( error , results, fields )=>{
+			mysqlService.query( insertQuery , roomData , ( error , results, fields )=>{
 				
 				if (error) {
-					return reject(error);
+					return reject([error.code , error.errno, error.sqlMessage]);
 				};
 
 				if (results.affectedRows == 1) {
@@ -48,6 +54,12 @@ class roomModel{
 		});
 	}
 
+	/**
+	 * [createBulk Create multiple rooms]
+	 * @param  {Number} hotelId   [hotel for which multiple rooms will be created]
+	 * @param  {Json} bodyParams  [Key value pair for multiple room data]
+	 * @return {[type]}           [description]
+	 */
 	createBulk( hotelId, bodyParams ){
 		return new Promise((resolve,reject)=>{
 			this._hotelModelObj.exists(hotelId)
@@ -74,13 +86,13 @@ class roomModel{
 
 				}
 			}
-			console.log( roomData );
+		
 			const insertQuery = "INSERT INTO room_master ( hotel_id, room_description, cost_per_day, room_no ) values ( ? ) ";
 			
-			mysqlService.connect().query( insertQuery , roomData , ( error , results, fields )=>{
+			mysqlService.query( insertQuery , roomData , ( error , results, fields )=>{
 				
 				if (error) {
-					return reject(error);
+					return reject([error.code , error.errno, error.sqlMessage]);
 				};
 
 				if (results.affectedRows == 1) {

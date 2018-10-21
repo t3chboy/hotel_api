@@ -1,4 +1,7 @@
-
+/**
+ * [hotelModelClass Class for DB hotel table]
+ * @type {[type]}
+ */
 const hotelModelClass = require('../models/hotelModel');
 
 class hotelController {
@@ -7,84 +10,61 @@ class hotelController {
 		this._hotelModelObj = new hotelModelClass();
 		console.log( this );
 	}
+	
 
-	create( req, res ){
-		let self = this;
-		let requestParams = req.body
+	/**
+	 * [create Create new Hotel]
+	 * @param  {Json} requestParams [key value pairs with hotel data]
+	 * @return {[type]}             [success or error message]
+	 */
+	create( requestParams ){
 		return new Promise((resolve,reject)=>{
-			self._hotelModelObj.create(requestParams).then(data => {
-				
-				res.status(200);
-            	res.send({'message':data});
-
+			this._hotelModelObj.create( requestParams )
+			.then( data =>{
+				return resolve(data);
 			},err => {
+				return reject(err);
+			})
+			.catch( err => {
+				return reject(err);
+			})
 
-				res.status(400);
-            	res.send({err});
-			
-			}).catch( err => {
-	        
-	            res.status(500);
-	            res.send({err});				
-			
-			});
 
-		});
+		})
 
 	}
 
-
-	update(req, res){
-
-		let self = this;
-		let requestParams = req.body;
-		let requestbody = req.params;
+	update( hotelId, requestParams ){
 		return new Promise((resolve,reject)=>{
-			self._hotelModelObj.update(requestbody, requestParams).then(data => {
-				
-				res.status(200);
-            	res.send({'message':data});
-
+			this._hotelModelObj.update(hotelId,requestParams)
+			.then(data => {
+				return resolve( data )
 			},err => {
-
-				res.status(400);
-            	res.send({err});
-			
-			}).catch( err => {
-	        
-	            res.status(500);
-	            res.send({err});				
-			
-			});
-
-		});
-
+				return reject( err );
+			})
+			.catch( err => {
+				return reject(err);
+			})
+		})
 	}
 
-	delete( req, res ){
-
-		let self = this;
-		let requestParams = req.params
+	/**
+	 * [delete Soft delete Hotel data]
+	 * @param  {Number} hotelId [unique hotel data]
+	 * @return {[type]}         [success or error message]
+	 */
+	delete( hotelId ){
 		return new Promise((resolve,reject)=>{
-			self._hotelModelObj.delete(requestParams).then(data => {
-				
-				res.status(200);
-            	res.send({'message':data});
-
+			this._hotelModelObj.delete( hotelId )
+			.then( data =>{
+				return resolve( data );
 			},err => {
-
-				res.status(400);
-            	res.send({err});
-			
-			}).catch( err => {
-	        
-	            res.status(500);
-	            res.send({err});				
-			
-			});
-
-		});
-
+				return reject(err);
+			})
+			.catch( err => {
+				return reject(err);
+			})
+		})
 	}
 
 }

@@ -1,3 +1,7 @@
+/**
+ * [mysqlService Mysql service]
+ * @type {[type]}
+ */
 const mysqlService = require('../services/mysql_service');
 
 class hotelModel {
@@ -5,6 +9,11 @@ class hotelModel {
 
 	}
 
+	/**
+	 * [create Create New hotel]
+	 * @param  {Json} requestParams [Key value pairs of hotel data]
+	 * @return {[type]}             [Success or Fail message]
+	 */
 	create( requestParams ){
 
 		return new Promise((resolve,reject)=>{
@@ -13,10 +22,10 @@ class hotelModel {
 
 			const insertQuery = "INSERT INTO hotel_master ( name, city, state, address, total_room_count ) values ( ? , ? , ? , ? , ? ) ";
 			
-			mysqlService.connect().query( insertQuery , userData , ( error , results, fields )=>{
+			mysqlService.query( insertQuery , userData , ( error , results, fields )=>{
 				
 				if (error) {
-					return reject(error);
+					return reject([error.code , error.errno, error.sqlMessage]);
 				};
 
 				if (results.affectedRows == 1) {
@@ -30,27 +39,38 @@ class hotelModel {
 
 	}
 
-	delete(requestParams) {
+	/**
+	 * [delete Soft delete hotel]
+	 * @param  {[type]} requestParams [description]
+	 * @return {[type]}               [description]
+	 */
+	delete(hotelId) {
 		let self = this;
 		return new Promise((resolve, reject) => {
-			self.exists(requestParams.hotelId)
+			self.exists(hotelId)
 				.then(()=>{
-					return self.deleteData(requestParams)
+					return self.deleteData(hotelId)
 				})
 				.then(data => {
-					resolve(data);
+					return resolve(data);
 				}, error => {
 					return reject(error);
 				})
 		});
 	}
 
-	update(hotelData,bodyParams){
+	/**
+	 * [update Update Hotel Data]
+	 * @param  {Number} hotelid     [Unique Id of hotel]
+	 * @param  {Json} requestParams [Key value pairs of hotel data]
+	 * @return {[type]}             [success or error message]
+	 */
+	update(hotelId,requestParams){
 		let self = this;
 		return new Promise((resolve,reject)=>{
-			self.exists(hotelData.hotelId)
+			self.exists(hotelId)
 			.then(()=>{
-				return self.updateHotel(hotelData,bodyParams)
+				return self.updateHotel(hotelId,requestParams)
 			})		
 			.then( data => {
 				return resolve(data);
@@ -61,25 +81,25 @@ class hotelModel {
 
 	}
 
-	updateHotel(hotelData,bodyParams){
+	updateHotel(hotelId,requestParams){
 
 		return new Promise((resolve,reject)=>{
 			let updateData = {
-				name : bodyParams.name,
-				city : bodyParams.city,
-				state : bodyParams.state,
-				address : bodyParams.address,
-				total_room_count : bodyParams.total_room_count
+				name : requestParams.name,
+				city : requestParams.city,
+				state : requestParams.state,
+				address : requestParams.address,
+				total_room_count : requestParams.total_room_count
 			}
 			
 
-			let whereClause = { id : hotelData.hotelId  }
+			let whereClause = { id : hotelId  }
 			let updateQuery = "UPDATE hotel_master set ? where ? ";
 
-			mysqlService.connect().query( updateQuery , [ updateData , whereClause ], ( error, results ) =>{
+			mysqlService.query( updateQuery , [ updateData , whereClause ], ( error, results ) =>{
 
 				if (error) {
-					return reject(error);
+					return reject([error.code , error.errno, error.sqlMessage]);
 				};
 				if (results.affectedRows == 1) {
 					return resolve('Updated successfully.');
@@ -90,15 +110,15 @@ class hotelModel {
 
 	}
 
-	deleteData(requestParams) {
+	deleteData(hotelId) {
 
 		return new Promise((resolve, reject) => {
-			let deleteRowId = requestParams.hotelId;
+			let deleteRowId = hotelId;
 			let deleteQuery = "UPDATE hotel_master set status = '0' where id = ? ";
-			mysqlService.connect().query(deleteQuery, deleteRowId, (error, results) => {
+			mysqlService.query(deleteQuery, deleteRowId, (error, results) => {
 			
 				if (error) {
-					return reject(error);
+					return reject([error.code , error.errno, error.sqlMessage]);
 				};
 				if (results.affectedRows == 1) {
 					return resolve('Deleted successfully.');
@@ -114,18 +134,17 @@ class hotelModel {
 		return new Promise((resolve, reject) => {
 			let selectQuery = "select id from hotel_master where id= ? AND status = ? ";
 
-			mysqlService.connect().query(selectQuery, [hotelId, '1'], (error, results, fields) => {
-				if (error) {
-					return reject(error);
-				} else if (results.length == 0) {
-					return reject("Hotel Not Found");
-				} else {
-					return resolve(true);
-				}
+				mysqlService.query(selectQuery, [hotelId, '1'], (error, results, fields) => {
+					if (error) {
+						return reject([error.code , error.errno, error.sqlMessage]);
+					} else if (results.length == 0) {
+						return reject("Hotel Not Found");
+					} else {
+						return resolve(true);
+					}
 
+				});
 			});
-
-		});
 
 	}
 }

@@ -4,18 +4,23 @@
   "description": "Restful hotel apis",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node ./node_modules/mocha/bin/mocha",
     "start": "nodemon ./app.js"
   },
   "author": "Kaushil rambhia",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "chai-http": "^4.2.0",
+    "chai-json-schema": "^1.5.0",
     "dotenv": "^6.1.0",
     "express": "^4.16.4",
     "mysql": "^2.16.0"
   },
   "devDependencies": {
-    "nodemon": "^1.18.4"
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.4",
+    "request": "^2.88.0"
   }
 }

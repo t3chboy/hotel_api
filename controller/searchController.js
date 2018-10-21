@@ -5,18 +5,23 @@ class searchController{
 	
 	constructor(){
 		this._searchModel = new searchModel();
-		
 	}
 
-	searchRoom( bodyParams ){
+	/**
+	 * [search Search for rooms]
+	 * @param  {Json} queryParams  [Query String having search params]
+	 * @param  {Number} hotelId    [Search filter for specific to hotel Id]
+	 * @return {[type]}            [description]
+	 */
+	search( queryParams, hotelId ){
 
 		return new Promise((resolve,reject)=>{
-			this.findRooms( bodyParams )
+			this._searchModel.searchRoom( queryParams, hotelId )
 			.then(data =>{
 				return resolve(data);
 			},err => {
 				return reject(err);
-			})r
+			})
 			.catch( error =>{
 				return reject( error );
 			});

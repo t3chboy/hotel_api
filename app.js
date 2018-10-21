@@ -1,7 +1,7 @@
 /**
  * require all env variables
  */
-require('dotenv').config()
+require('dotenv').config();
 
 const bodyParser = require('body-parser');
 const express = require('express');
@@ -11,6 +11,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
 	extended: true
 }));
+
+
 
 let config = require('./configuration');
 const appRoutes = require('./routes/index');

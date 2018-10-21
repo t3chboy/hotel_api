@@ -4,11 +4,40 @@ const express = require('express');
 
 const routes = express.Router();
 
+/**
+ * [userControllerClass User controller with Rest methods]
+ * @type {[type]}
+ */
 let userControllerClass = require('../controller/userController');
+
+/**
+ * [hotelControllerClass Hotel controller with Rest methods]
+ * @type {[type]}
+ */
 let hotelControllerClass = require('../controller/hotelController');
+
+/**
+ * [roomControllerClass Room controller with Rest methods]
+ * @type {[type]}
+ */
 let roomControllerClass = require('../controller/roomController');
+
+/**
+ * [bookingControllerClass Room Booking controller]
+ * @type {[type]}
+ */
 let bookingControllerClass = require('../controller/bookingController');
+
+/**
+ * [searchControllerClass Room search controller]
+ * @type {[type]}
+ */
 let searchControllerClass = require('../controller/searchController');
+
+/**
+ * [tokenServiceClass User Identity Token generation and validation service]
+ * @type {[type]}
+ */
 let tokenServiceClass = require('../services/token_service');
 
 let userControllerObj = new userControllerClass();
@@ -18,18 +47,23 @@ let bookingControllerObj = new bookingControllerClass();
 let searchControllerObj = new searchControllerClass();
 let tokenServiceObj = new tokenServiceClass();
 
+
 routes.get('/', function (req, res) {
     console.log("in routes");
+    res.status(200);
+    res.send("Welcome to hotel API");   
 })
 
+/*============================================= User Routes =====================================================*/
+
 routes.delete('/user/:userId', (req, res, next) => {
-    let rosterInfo = req.params;
+    let userId = req.params.userId;
     try {
-        userControllerObj.userDelete(rosterInfo).then(data => {
+        userControllerObj.delete(userId).then(data => {
             res.status(201);
-            res.send({'msg':data});
+            res.json({'message':data});
         }, err => {
-            res.status(500);
+            res.status(400);
             res.send(err);
         })
     } catch (err) {
@@ -39,12 +73,12 @@ routes.delete('/user/:userId', (req, res, next) => {
 });
 
 routes.put('/user/:userId', (req, res, next) => {
-    let rosterInfo = req.params;
+    let userId = req.params.userId;
     let bodyParams = req.body;
     try {
-        userControllerObj.update(rosterInfo,bodyParams).then(data => {
+        userControllerObj.update(userId,bodyParams).then(data => {
             res.status(200);
-            res.send({'msg':data});
+            res.send({"message":data});
         }, err => {
             res.status(400);
             res.send(err);
@@ -73,11 +107,64 @@ routes.post('/user',(req, res, next)=>{
     }
 });
 
-routes.post( '/hotel',hotelControllerObj.create.bind(hotelControllerObj));
+/*============================================= Hotel Routes =====================================================*/
 
-routes.put( '/hotel/:hotelId',hotelControllerObj.update.bind(hotelControllerObj));
 
-routes.delete( '/hotel/:hotelId',hotelControllerObj.delete.bind(hotelControllerObj));
+routes.post('/hotel',(req, res, next)=>{
+
+    let requestParams = req.body;
+
+    try{
+        hotelControllerObj.create(requestParams).then(data => {
+            res.status(200);
+            res.send({'message':data});
+        }, err => {
+            res.status(400);
+            res.send(err);
+        })
+    } catch (err){
+        res.status(500);
+        res.send(err);
+    }
+});
+
+
+routes.put('/hotel/:hotelId', (req, res, next) => {
+    let hotelId = req.params.hotelId;
+    let requestParams = req.body;
+    try {
+        hotelControllerObj.update(hotelId,requestParams).then(data => {
+            res.status(200);
+            res.send({"message":data});
+        }, err => {
+            res.status(400);
+            res.send(err);
+        })
+    } catch (err) {
+        res.status(500);
+        res.send(err);
+    }
+});
+
+
+routes.delete('/hotel/:hotelId', (req, res, next) => {
+    let hotelId = req.params.hotelId;
+    try {
+        hotelControllerObj.delete(hotelId).then(data => {
+            res.status(201);
+            res.json({'message':data});
+        }, err => {
+            res.status(400);
+            res.send(err);
+        })
+    } catch (err) {
+        res.status(500);
+        res.send(err);
+    }
+});
+
+
+/*============================================= Room Routes =====================================================*/
 
 routes.post('/hotel/:hotelId/room',( req, res , next )=>{
     let bodyParams = req.body;
@@ -115,6 +202,7 @@ routes.post('/hotel/:hotelId/room/bulk',( req, res , next )=>{
     }
 });
 
+/*============================================= Booking Routes =====================================================*/
 
 routes.post('/booking/create', ( req, res, next ) =>{
     
@@ -148,15 +236,18 @@ routes.post('/booking/create', ( req, res, next ) =>{
     }
 });
 
+/*============================================= Search Routes =====================================================*/
 
-routes.get('/search/:hotelId?',( req, res, next ) =>{
+routes.get('/search/:hotelId?/',( req, res, next ) =>{
 
-    const bodyParams = req.body;
+    const queryParams = req.query;
+    const hotelId = req.params.hotelId || 0;
+
 
     try{
-        searchControllerObj.search( bodyParams ).then(data => {
+        searchControllerObj.search( queryParams , hotelId ).then(data => {
             res.status(200);
-            res.send({'message':data});
+            res.send({'data':data});
         },err =>{ 
             res.status(400);
             res.send(err);
