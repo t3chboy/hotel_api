@@ -1,0 +1,4 @@
+{"message":"Hello world","level":"info"}
+{"message":"Hello world","level":"\u001b[32minfo\u001b[39m","timestamp":"2018-10-21 23:19:25"}
+{"message":"Hello world","level":"info","timestamp":"2018-10-21 23:19:57"}
+{"message":["ER_DUP_ENTRY",1062,"Duplicate entry 'test user 2-29-mumbai' for key 'uquser'"],"level":"info","timestamp":"2018-10-21 23:27:16"}

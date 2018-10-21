@@ -10,7 +10,7 @@ class token_service{
 	 * @return {Number}        [User id based on token stored in session]
 	 */
 	validateToken( _token ){
-		console.log("token"+_token);
+		
 		if( _token != null && _token != "null" && _token != undefined && _token != "" ){
 			const userId = 1
 			return userId;

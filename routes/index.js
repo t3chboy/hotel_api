@@ -4,6 +4,8 @@ const express = require('express');
 
 const routes = express.Router();
 
+const logger = require('../services/logger_service');
+
 /**
  * [userControllerClass User controller with Rest methods]
  * @type {[type]}
@@ -65,10 +67,12 @@ routes.delete('/user/:userId', (req, res, next) => {
         }, err => {
             res.status(400);
             res.send(err);
+            logger.info(err);
         })
     } catch (err) {
         res.status(500);
         res.send(err);
+        logger.info(err);
     }
 });
 
@@ -82,10 +86,12 @@ routes.put('/user/:userId', (req, res, next) => {
         }, err => {
             res.status(400);
             res.send(err);
+            logger.info(err);
         })
     } catch (err) {
         res.status(500);
         res.send(err);
+        logger.info(err);
     }
 });
 
@@ -100,10 +106,12 @@ routes.post('/user',(req, res, next)=>{
         }, err => {
             res.status(400);
             res.send(err);
+            logger.info(err);
         })
     } catch (err){
         res.status(500);
         res.send(err);
+        logger.info(err);
     }
 });
 
@@ -121,10 +129,12 @@ routes.post('/hotel',(req, res, next)=>{
         }, err => {
             res.status(400);
             res.send(err);
+            logger.info(err);
         })
     } catch (err){
         res.status(500);
         res.send(err);
+        logger.info(err);
     }
 });
 
@@ -139,10 +149,12 @@ routes.put('/hotel/:hotelId', (req, res, next) => {
         }, err => {
             res.status(400);
             res.send(err);
+            logger.info(err);
         })
     } catch (err) {
         res.status(500);
         res.send(err);
+        logger.info(err);
     }
 });
 
@@ -156,10 +168,12 @@ routes.delete('/hotel/:hotelId', (req, res, next) => {
         }, err => {
             res.status(400);
             res.send(err);
+            logger.info(err);
         })
     } catch (err) {
         res.status(500);
         res.send(err);
+        logger.info(err);
     }
 });
 
@@ -177,10 +191,12 @@ routes.post('/hotel/:hotelId/room',( req, res , next )=>{
         },err =>{
             res.status(400);
             res.send(err);
+            logger.info(err);
         });
     } catch (err){
         res.status(500);
         res.send(err);
+        logger.info(err);
     }
 });
 
@@ -195,10 +211,12 @@ routes.post('/hotel/:hotelId/room/bulk',( req, res , next )=>{
         },err =>{
             res.status(400);
             res.send(err);
+            logger.info(err);
         });
     } catch (err){
         res.status(500);
         res.send(err);
+        logger.info(err);
     }
 });
 
@@ -218,10 +236,12 @@ routes.post('/booking/create', ( req, res, next ) =>{
                 }, err =>{
                     res.status(400);
                     res.send(err);
+                    logger.info(err);
                 });
             }catch (err){
                 res.status(500);
                 res.send(err);
+                logger.info(err);
             }
 
 
@@ -251,10 +271,12 @@ routes.get('/search/:hotelId?/',( req, res, next ) =>{
         },err =>{ 
             res.status(400);
             res.send(err);
+            logger.info(err);
         });
     }catch( error ){
         res.status('500');
         res.send(error);
+        logger.info(error);
     }
 
 });
