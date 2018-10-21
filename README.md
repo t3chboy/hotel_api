@@ -3,7 +3,7 @@
 [![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)]()
 
 
-<p style='color:red'>Problem 1: Hotel Booking System (RESTful apis, only backend)</p> 
+Problem 1: Hotel Booking System (RESTful apis, only backend)
 
 Write API:
 - create/update/delete hotel.
@@ -27,9 +27,9 @@ Write API:
   - [x] GET to fetch all available room across all hotel	
   - [x] GET to fetch all available room across specific hotel	
 
+## Technical Details : 
 
-
-### Tech Stack
+#### Tech Stack
     NodeJs
     Mysql
 
@@ -46,23 +46,23 @@ Write API:
     "nodemon": "^1.18.4",
     "request": "^2.88.0"
 
-### Setup
+#### Setup
     - Get all the node dependencies installed.
-### Database setup
+#### Database setup
     - Get Mysql installed.
     - Create database - hotel
     - Update .env file with db credential
     - Import hotel_api.sql to database. 
-### APIs Documentation and Usage
+#### APIs Documentation and Usage
 - [API DOCUMENTATION](https://documenter.getpostman.com/view/3407371/RWguxHLr)
 - Import `Hotel_api.postman_collection.json` collection in postman to run the APIs.
 
-### Use Application
+#### Use Application
 - [x] Browse to root folder of app via terminal.
 - [x] Type `node start` to start the application.
 - [x] Hit the APIs from postman collection imported ealier.
 
-### Test Cases
+#### Test Cases
 - Start application using `node start`
 - Browse to test folder via terminal
 - Type `npm test`
@@ -72,7 +72,7 @@ Currently there are 3 test cases
 > `GET` To get all the rooms available with specific hotel
 > `POST`To create new hotel 
 
-### Check ERROR logs
+#### Check ERROR logs
 > we are using winston module for error
 > logging.
 > Errors will be prinited on console and
