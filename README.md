@@ -30,16 +30,23 @@
 - Import `Hotel_api.postman_collection.json` collection in postman to run the APIs.
 
 ### Use Application
-- [x] Browse to test folder via terminal.
+- [x] Browse to root folder of app via terminal.
 - [x] Type `node start` to start the application.
 - [x] Hit the APIs from postman collection imported ealier.
 
 ### Test Cases
-- Start application using `npm start`
+- Start application using `node start`
 - Browse to test folder via terminal
 - Type `npm test`
 
 Currently there are 3 test cases
-1. `GET` To get all the rooms available in all hotel
-2. `GET` To get all the rooms available with specific hotel
-3. `POST`To create new hotel 
+> `GET` To get all the rooms available in all hotel
+> `GET` To get all the rooms available with specific hotel
+> `POST`To create new hotel 
+
+### Check ERROR logs
+>we are using winston module for error
+>logging.
+>Errors will be prinited on console and
+>stored in a file name all_logs.log in logs folder.
+>Errors are stored with timestamp and thier log level.
