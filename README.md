@@ -45,8 +45,8 @@ Currently there are 3 test cases
 > `POST`To create new hotel 
 
 ### Check ERROR logs
->we are using winston module for error
->logging.
->Errors will be prinited on console and
->stored in a file name all_logs.log in logs folder.
->Errors are stored with timestamp and thier log level.
+> we are using winston module for error
+> logging.
+> Errors will be prinited on console and
+> stored in a file name all_logs.log in logs folder.
+> Errors are stored with timestamp and thier log level.
