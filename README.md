@@ -20,8 +20,10 @@
 
 ### Setup
     - Get all the node dependencies installed.
-## Database
+### Database setup
     - Get Mysql installed.
     - Create database - hotel
     - Update .env file with db credential
-    - Import hotel_api.sql to database.   
+    - Import hotel_api.sql to database. 
+### APIs Documentation and Usage
+[API DOCUMENTATION](https://documenter.getpostman.com/view/3407371/RWguxHLr)
