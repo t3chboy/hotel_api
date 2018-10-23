@@ -95,7 +95,7 @@ Currently there are 3 test cases
 #### Requirments
 - [x] Commit your code in github project with proper comments and send in your project link.
 - [x] README for settingup the project.
-- [ ] Design/Write your application assuming scale for lakhs of hotels and users( We have used connection pool, redis can be used but not recommended for test assignment as per telecon.
+- [ ] Design/Write your application assuming scale for lakhs of hotels and users( We have used connection pool, redis can be used.
 - [x] RESTful api recommended 
 - [x] Implement using node (use any framework).
 - [x] Use database of your preference.
